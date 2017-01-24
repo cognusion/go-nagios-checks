@@ -7,13 +7,11 @@ import (
 	"strings"
 )
 
-// These constants make returning the correct code easier
 const OK int = 0
 const WARNING int = 1
 const CRITICAL int = 2
 const UNKNOWN int = 3
 
-// Nagios struct
 type Nagios struct {
 	Code    int
 	Message string
