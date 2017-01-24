@@ -35,6 +35,11 @@ func (n *Nagios) EscalateIf(code int) {
 	}
 }
 
+// Prepend a message to the message
+func (n *Nagios) PrependMessage(message string) {
+	n.Message = message + n.Message
+}
+
 // Append a message to the message
 func (n *Nagios) AddMessage(message string) {
 	n.Message = n.Message + message
