@@ -1,4 +1,4 @@
-package nagios
+package gonagioschecks
 
 import (
 	"fmt"
