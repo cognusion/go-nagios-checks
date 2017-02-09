@@ -37,12 +37,12 @@ func (n *Nagios) EscalateIf(code int) {
 
 // Prepend a message to the message
 func (n *Nagios) PrependMessage(message string) {
-	n.Message = message + n.Message
+	n.Message = Sanitize(message) + n.Message
 }
 
 // Append a message to the message
 func (n *Nagios) AddMessage(message string) {
-	n.Message = n.Message + message
+	n.Message = n.Message + Sanitize(message)
 }
 
 // Append a message to the message if the condition isn't empty
@@ -53,7 +53,7 @@ func (n *Nagios) AddMessageIf(message, cond string) {
 // Append a message to the message if the condition boolean isn't false
 func (n *Nagios) AddMessageIfBool(message string, cond bool) {
 	if cond {
-		n.Message = n.Message + message
+		n.AddMessage(message)
 	}
 }
 
@@ -97,6 +97,13 @@ func (n *Nagios) Exit() {
 	default:
 		ExitUnknown(n.FullMessage())
 	}
+}
+
+// Sanitize removes newlines and tabs from strings going into Nagios messages to prevent oopsies
+func Sanitize(message string) (clean string) {
+	clean = strings.Replace(message, "\n", " ", -1)
+	clean = strings.Replace(clean, "\t", " ", -1)
+	return
 }
 
 // Nagios-compatible exit with the OK status
