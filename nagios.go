@@ -35,6 +35,11 @@ func (n *Nagios) EscalateIf(code int) {
 	}
 }
 
+// Status returns the current status code
+func (n *Nagios) Status() int {
+	return n.Code
+}
+
 // Prepend a message to the message
 func (n *Nagios) PrependMessage(message string) {
 	n.Message = Sanitize(message) + n.Message
@@ -81,7 +86,7 @@ func (n *Nagios) FullMessage() (message string) {
 	return
 }
 
-// Correctly Nagios-compatibly exit by analyzing the status code, and displaying
+// Exit Nagios-compatibly exits by analyzing the status code, and displaying
 // the message appropriately.
 func (n *Nagios) Exit() {
 
