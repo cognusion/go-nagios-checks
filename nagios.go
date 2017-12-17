@@ -18,6 +18,13 @@ type Nagios struct {
 	Metrics []string
 }
 
+// Merge appends another Nagios struct to this on, fallowing normal escalation rules.
+func (n *Nagios) Merge(other *Nagios) {
+	n.EscalateIf(other.Code)
+	n.AddMessage(other.Message)
+	n.Metrics = append(n.Metrics, other.Metrics...)
+}
+
 // Escalate the Nagios status code, if a more severe one
 // is passed
 func (n *Nagios) EscalateIf(code int) {
